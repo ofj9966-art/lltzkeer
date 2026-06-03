@@ -373,11 +373,13 @@ function maybeEnableButtons() {
         }
       } catch(_) {}
     }
+    // Token expired or missing — auto sign-in silently (no prompt)
+    tokenClient.requestAccessToken({ prompt: '' });
   }
 }
 function signIn() {
   if (!gapiInited || !gisInited) { showLoginError('جاري التحميل... حاول مرة أخرى'); return; }
-  tokenClient.requestAccessToken({ prompt: 'consent' });
+  tokenClient.requestAccessToken({ prompt: '' });
 }
 function signOut() {
   const token = gapi.client.getToken();
